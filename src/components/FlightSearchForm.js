@@ -14,32 +14,63 @@ const FlightSearchForm = ({ onSearch }) => {
   const [airports, setAirports] = useState([]);
 
   useEffect(() => {
-    fetchAirports().then((data) => {
-      setAirports(data);
-    });
+    fetchAirports()
+      .then((data) => {
+        setAirports(data.availableAirports || []);
+      })
+      .catch((error) => {
+        console.error('Error fetching airports:', error.message);
+        setAirports([]);
+      });
   }, []);
 
-  const airportOptions = airports.map((airport) => ({
-    value: airport.code,
-    label: airport.name,
-  }));
+  const airportOptions = airports
+    ? airports.map((airport) => ({
+        value: airport.code,
+        label: `${airport.name} (${airport.code})`,
+      }))
+    : [];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!departureAirport || !arrivalAirport || !departureDate || (!oneWay && !returnDate)) {
-      alert('Lütfen tüm alanları doldurun.');
-      return;
-    }
-
-    const searchParams = {
-      departureAirport: departureAirport.value,
-      arrivalAirport: arrivalAirport.value,
-      departureDate,
-      returnDate: oneWay ? null : returnDate,
-    };
-    onSearch(searchParams);
-  };
+    const handleInputChange = (inputValue) => {
+        fetchAirports()
+          .then((data) => {
+            const filteredAirports = data.availableAirports.filter(
+              (airport) =>
+                airport.name.toLowerCase().includes(inputValue.toLowerCase()) ||
+                airport.code.toLowerCase().includes(inputValue.toLowerCase())
+            );
+            setAirports(filteredAirports);
+          })
+          .catch((error) => {
+            console.error('Error fetching airports:', error.message);
+            setAirports([]);
+          });
+      };
+    
+      const handleSubmit = (e) => {
+        e.preventDefault();
+    
+        
+        if (!departureAirport || !arrivalAirport || !departureDate || (!oneWay && !returnDate)) {
+          alert('Lütfen tüm alanları doldurun.');
+          return;
+        }
+    
+        const searchParams = {
+          departureAirport: departureAirport.value,
+          arrivalAirport: arrivalAirport.value,
+          departureDate,
+          returnDate: oneWay ? null : returnDate,
+        };
+        onSearch(searchParams);
+    
+        
+        setDepartureAirport(null);
+        setArrivalAirport(null);
+        setDepartureDate(null);
+        setReturnDate(null);
+        setOneWay(false);
+      };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -50,6 +81,7 @@ const FlightSearchForm = ({ onSearch }) => {
             options={airportOptions}
             value={departureAirport}
             onChange={(selectedOption) => setDepartureAirport(selectedOption)}
+            onInputChange={handleInputChange}
             isSearchable
             placeholder="Select departure airport"
           />
@@ -60,6 +92,7 @@ const FlightSearchForm = ({ onSearch }) => {
             options={airportOptions}
             value={arrivalAirport}
             onChange={(selectedOption) => setArrivalAirport(selectedOption)}
+            onInputChange={handleInputChange}
             isSearchable
             placeholder="Select arrival airport"
           />
@@ -82,13 +115,7 @@ const FlightSearchForm = ({ onSearch }) => {
         </Col>
       </Row>
 
-      <Form.Check
-        type="checkbox"
-        label="One Way"
-        checked={oneWay}
-        onChange={() => setOneWay(!oneWay)}
-        className="mb-3"
-      />
+      <Form.Check type="checkbox" label="One Way" checked={oneWay} onChange={() => setOneWay(!oneWay)} className="mb-3" />
 
       <Button type="submit" variant="primary">
         Search
