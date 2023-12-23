@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import FlightSearchForm from './FlightSearchForm';
 import FlightList from './FlightList';
-import { fetchFlights } from '../services/api';
+import { fetchFilteredFlights, fetchFlights } from '../services/api';
 import ErrorPage from './ErrorPage';
 
 const SearchPage = () => {
@@ -15,8 +15,12 @@ const SearchPage = () => {
     setError(null);
 
     fetchFlights(searchParams)
-      .then((data) => {
-        setFlights(data);
+      .then((data) => { 
+        const filteredFlights = data.filter((flight) => {
+            return flight.departure_airport === searchParams.departureAirportName;
+          });
+        console.log("sinem", data);
+        setFlights(filteredFlights);
       })
       .catch((error) => {
         setError('Error fetching flights. Please try again.');
