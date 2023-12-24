@@ -20,7 +20,6 @@ const SearchPage = () => {
         const filteredFlights = data.filter((flight) => {
             return flight.departure_airport === searchParams.departureAirportName;
           });
-        console.log("sinem", data);
         setFlights(filteredFlights);
       })
       .catch((error) => {
