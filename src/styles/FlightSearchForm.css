@@ -1,33 +1,98 @@
-
 .form-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-label {
-    font-weight: bold;
-  }
-  
-  .checkbox-label {
-    margin-top: 10px;
-  }
-  
-  .date-picker-container {
-    margin-top: 10px;
-  }
-  
-  .select-container {
-    margin-top: 10px;
-  }
-  
-  .submit-button {
-    margin-top: 20px;
-  }
-  
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #afcfef; 
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-  
+.form-container:hover {
+  background-color: #e9ecef; 
+}
+
+.form-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #007bff; 
+}
+
+.form-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.checkbox-container {
+  margin-top: 15px;
+}
+
+.date-picker-container {
+  margin-top: 15px;
+}
+
+.select-container {
+  margin-top: 15px;
+}
+
+.select-container .react-select__control {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: border 0.3s ease;
+}
+
+.select-container .react-select__control:hover {
+  border-color: #007bff;
+}
+
+.select-container .react-select__indicator-separator,
+.select-container .react-select__dropdown-indicator {
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.select-container .react-select__dropdown-indicator:hover {
+  color: #0056b3;
+}
+
+.submit-button {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+.submit-button:hover {
+  background-color: #0e3f74;
+}
+
+.btn-one-way {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-one-way:hover {
+  background-color: #2980b9;
+}
+
+
+.error-message {
+  color: #dc3545; 
+  font-size: 14px;
+  margin-top: 5px;
+}

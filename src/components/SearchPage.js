@@ -4,6 +4,7 @@ import FlightSearchForm from './FlightSearchForm';
 import FlightList from './FlightList';
 import { fetchFilteredFlights, fetchFlights } from '../services/api';
 import ErrorPage from './ErrorPage';
+import '../styles/SearchPage.css';
 
 const SearchPage = () => {
   const [flights, setFlights] = useState([]);
@@ -33,7 +34,7 @@ const SearchPage = () => {
   return (
     <div>
       <header>
-        <h1>Flight Search App</h1>
+        <h3>Flight Search App</h3>
       </header>
       <main>
         <FlightSearchForm onSearch={handleSearch} />

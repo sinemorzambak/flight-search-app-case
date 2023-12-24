@@ -13,6 +13,7 @@ const FlightSearchForm = ({ onSearch }) => {
   const [returnDate, setReturnDate] = useState(null);
   const [oneWay, setOneWay] = useState(false);
   const [airports, setAirports] = useState([]);
+  const [error, setError] = useState(false); 
 
   useEffect(() => {
     fetchAirports()
@@ -53,10 +54,9 @@ const FlightSearchForm = ({ onSearch }) => {
     e.preventDefault();
 
     if (!departureAirport || !arrivalAirport || !departureDate || (!oneWay && !returnDate)) {
-      alert('Lütfen tüm alanları doldurun.');
+      setError(true); 
       return;
     }
-    console.log(departureAirport);
 
     const searchParams = {
       departureAirport: departureAirport.value,
@@ -72,16 +72,19 @@ const FlightSearchForm = ({ onSearch }) => {
     setDepartureDate(null);
     setReturnDate(null);
     setOneWay(false);
+    setError(false); 
   };
 
   return (
     <div className="form-container">
+      {error && <div className="error-message">Lütfen tüm alanları doldurun.</div>}
+
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Col>
             <Form.Label className="form-label">Departure Airport:</Form.Label>
             <Select
-              className="select-container"
+              className={`select-container ${error && !departureAirport ? 'is-invalid' : ''}`}
               options={airportOptions}
               value={departureAirport}
               onChange={(selectedOption) => setDepartureAirport(selectedOption)}
@@ -89,11 +92,14 @@ const FlightSearchForm = ({ onSearch }) => {
               isSearchable
               placeholder="Select departure airport"
             />
+            {error && !departureAirport && (
+              <div className="invalid-feedback">Departure airport is required.</div>
+            )}
           </Col>
           <Col>
             <Form.Label className="form-label">Arrival Airport:</Form.Label>
             <Select
-              className="select-container"
+              className={`select-container ${error && !arrivalAirport ? 'is-invalid' : ''}`}
               options={airportOptions}
               value={arrivalAirport}
               onChange={(selectedOption) => setArrivalAirport(selectedOption)}
@@ -101,6 +107,9 @@ const FlightSearchForm = ({ onSearch }) => {
               isSearchable
               placeholder="Select arrival airport"
             />
+            {error && !arrivalAirport && (
+              <div className="invalid-feedback">Arrival airport is required.</div>
+            )}
           </Col>
         </Row>
 
@@ -110,8 +119,11 @@ const FlightSearchForm = ({ onSearch }) => {
             <DatePicker
               selected={departureDate}
               onChange={(date) => setDepartureDate(date)}
-              className="form-control date-picker-container"
+              className={`form-control date-picker-container ${error && !departureDate ? 'is-invalid' : ''}`}
             />
+            {error && !departureDate && (
+              <div className="invalid-feedback">Departure date is required.</div>
+            )}
           </Col>
           <Col>
             <Form.Label className="form-label">Return Date:</Form.Label>
@@ -119,8 +131,11 @@ const FlightSearchForm = ({ onSearch }) => {
               selected={returnDate}
               onChange={(date) => setReturnDate(date)}
               disabled={oneWay}
-              className="form-control date-picker-container"
+              className={`form-control date-picker-container ${error && !returnDate ? 'is-invalid' : ''}`}
             />
+            {error && !returnDate && (
+              <div className="invalid-feedback">Return date is required.</div>
+            )}
           </Col>
         </Row>
 
@@ -132,17 +147,10 @@ const FlightSearchForm = ({ onSearch }) => {
             onChange={() => setOneWay(!oneWay)}
             className="checkbox-label"
           />
-          <Button
-            variant="primary"
-            className={`btn-one-way ${oneWay ? 'active' : ''}`}
-            onClick={() => setOneWay(!oneWay)}
-          >
-            One Way
-          </Button>
         </div>
 
         <Button type="submit" variant="primary" className="submit-button">
-          Search
+          Search Flights
         </Button>
       </Form>
     </div>

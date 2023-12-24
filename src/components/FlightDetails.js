@@ -1,15 +1,29 @@
 import React from 'react';
+import { Card } from 'react-bootstrap';
+import { FaPlaneDeparture, FaPlaneArrival, FaClock, FaMoneyBillAlt } from 'react-icons/fa';
+import '../styles/FlightDetails.css';
 
 const FlightDetails = ({ flight }) => {
   return (
-    <div>
-      <h3>{flight.airline} - {flight.city}</h3>
-      <p>Departure Time: {flight.departure_time}</p>
-      <p>Arrival Time: {flight.arrival_time}</p>
-      <p>Flight Duration: {flight.flight_time}</p>
-      <p>Price: {flight.price}</p>
-      
-    </div>
+    <Card className="flight-details-card">
+      <Card.Header className="airline-title">{flight.airline}</Card.Header>
+      <Card.Body>
+        <Card.Text className="flight-info">
+          <p>
+            <FaPlaneDeparture className="icon" /> Departure Time: {flight.departure_time}
+          </p>
+          <p>
+            <FaPlaneArrival className="icon" /> Arrival Time: {flight.arrival_time}
+          </p>
+          <p>
+            <FaClock className="icon" /> Flight Duration: {flight.flight_time} hours
+          </p>
+          <p>
+            <FaMoneyBillAlt className="icon" /> Price: ${flight.price}
+          </p>
+        </Card.Text>
+      </Card.Body>
+    </Card>
   );
 };
 

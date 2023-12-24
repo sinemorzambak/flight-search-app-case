@@ -1,0 +1,44 @@
+header {
+    background: url('https://www.lufthansa.com/content/dam/lh/images/local_images/homepage/stage-teasers/goldengate_desktop_156605970_1440x500.png.transform/lh-dcep-transform-width-1440/img.jpg') center center no-repeat;
+    background-size: cover;
+    padding: 20px 0;
+    color: #fff;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  header:hover {
+    background-color: #0056b3;
+  }
+  
+  .main-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: color 0.3s ease;
+  }
+  
+  .main-title:hover {
+    color: #ffd700; 
+  }
+  
+  .navbar {
+    background-color: #f8f9fa;
+    padding: 10px 0;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-link {
+    color: #007bff;
+    font-weight: bold;
+    margin: 0 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    color: #0056b3;
+  }
+  

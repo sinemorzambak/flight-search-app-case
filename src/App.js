@@ -5,9 +5,6 @@ import SearchPage from './components/SearchPage';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        
-      </header>
       <main>
         <SearchPage />
       </main>
